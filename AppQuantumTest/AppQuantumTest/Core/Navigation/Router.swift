@@ -24,9 +24,7 @@ class Router {
     
     func present(_ alert: UIAlertController) {
         if let viewController = self.rootController?.viewControllers.first {
-            DispatchQueue.main.async {
-                viewController.present(alert, animated: true, completion: nil)
-            }
+            viewController.present(alert, animated: true, completion: nil)
         }
     }
 }

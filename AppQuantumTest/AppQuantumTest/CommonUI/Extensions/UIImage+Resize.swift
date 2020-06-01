@@ -14,21 +14,21 @@ extension UIImage {
     func resizedImage(with targetSize: CGSize) -> UIImage? {
         
         let imageSize = self.size
-        let newWidth  = targetSize.width  / self.size.width
-        let newHeight = targetSize.height / self.size.height
-        var newSize: CGSize
+        let widthRatio  = targetSize.width  / self.size.width
+        let heightRatio = targetSize.height / self.size.height
+        let newSize: CGSize
         
-        if(newWidth > newHeight) {
-            newSize = CGSize(width: imageSize.width * newHeight, height: imageSize.height * newHeight)
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: imageSize.width * heightRatio, height: imageSize.height * heightRatio)
         } else {
-            newSize = CGSize(width: imageSize.width * newWidth,  height: imageSize.height * newWidth)
+            newSize = CGSize(width: imageSize.width * widthRatio,  height: imageSize.height * widthRatio)
         }
         
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        let rect = CGRect.init(origin: .init(x: 0, y: 0), size: newSize)
         
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
         
-        self.draw(in: rect)
+        draw(in: rect)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

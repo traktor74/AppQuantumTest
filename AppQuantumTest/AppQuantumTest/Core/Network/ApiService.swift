@@ -11,7 +11,7 @@ import Foundation
 class ApiService {
     func loadObject<A>(ofType: A.Type,
                        url: URL,
-                       completion: @escaping (Swift.Result<A, Error>) -> Void) where A: Decodable {
+                       completion: @escaping (Result<A, Error>) -> Void) where A: Decodable {
         let task = URLSession.shared.dataTask(with: url) { (data, reponse, error) in
             if let error = error {
                 completion(.failure(error))

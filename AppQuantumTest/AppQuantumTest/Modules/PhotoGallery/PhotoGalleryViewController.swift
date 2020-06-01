@@ -19,7 +19,7 @@ class PhotoGalleryViewController: UIViewController {
     
     var state: DownloadState = .started {
         didSet {
-            self.handleStateChange()
+            handleStateChange()
         }
     }
     
@@ -37,7 +37,7 @@ class PhotoGalleryViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if case .started =  self.state  {
+        if case .started =  state {
             alert = ViewFactory.createAlert("Image Download", spinner: true)
             coordinator?.show(alert: alert)
         }
@@ -87,8 +87,8 @@ extension PhotoGalleryViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotooCell", for: indexPath) as! PhotoGalleryCollectionCell
-        cell.backgroundColor = UIColor.white // TODO: placeholder
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoGalleryCollectionCell
+        cell.backgroundColor = .white // TODO: placeholder
         return cell
     }
     

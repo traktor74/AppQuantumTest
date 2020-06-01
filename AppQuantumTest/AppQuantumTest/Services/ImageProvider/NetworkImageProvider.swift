@@ -11,7 +11,7 @@ import Foundation
 class NetworkImageProvider: ImageProvider {
     private let apiService = ApiService() // TODO: injection
     
-    func fetchImagesData(completion: @escaping (Swift.Result<[ImageInfoResponse], Error>) -> Void) {
+    func fetchImagesData(completion: @escaping (Result<[ImageInfoResponse], Error>) -> Void) {
         let url = PhotosListEndPoint().url
         apiService.loadObject(ofType: [ImageInfoResponse].self, url: url) { result in
             completion(result)
