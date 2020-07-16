@@ -21,12 +21,12 @@ class ViewFactory {
         return resultLabel
     }
     
-    static func createAlert(_ title: String,
+    static func makeAlert(title: String,
                             message: String = "") -> UIAlertController {
         return UIAlertController(title: title, message: message, preferredStyle: .alert)
     }
     
-    static func createSpinnerAlert(_ title: String,
+    static func makeSpinnerAlert(_ title: String,
                                    message: String = "") -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 20, y: 20, width: 30, height: 30))
@@ -36,9 +36,9 @@ class ViewFactory {
         return alert
     }
     
-    static func createErrorAlert(_ title: String = "Something bad happened",
+    static func makeErrorAlert(_ title: String = "Something bad happened",
                                  message: String) -> UIAlertController {
-        let errorAlert = ViewFactory.createAlert(title, message: message)
+        let errorAlert = ViewFactory.makeAlert(title: title, message: message)
         let alertAction = UIAlertAction(title: "Ok =(", style: .cancel, handler: nil)
         errorAlert.addAction(alertAction)
         return errorAlert

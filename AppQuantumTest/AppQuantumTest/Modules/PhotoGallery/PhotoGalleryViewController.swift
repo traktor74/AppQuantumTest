@@ -12,7 +12,7 @@ class PhotoGalleryViewController: UIViewController {
     
     @IBOutlet weak var photosCollectionView: UICollectionView!
     
-    var alert = ViewFactory.createAlert("Download started")
+    var alert = ViewFactory.makeAlert(title: "Download started")
     var viewModel: PhotoGalleryViewModel?
     var coordinator: PhotoGalleryCoordinator?
     var imagesInfo: [ImageInfoData] = []
@@ -38,7 +38,7 @@ class PhotoGalleryViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if case .started =  state {
-            alert = ViewFactory.createSpinnerAlert("Image Download")
+            alert = ViewFactory.makeSpinnerAlert("Image Download")
             coordinator?.show(alert: alert)
         }
     }
@@ -66,7 +66,7 @@ class PhotoGalleryViewController: UIViewController {
                 self.photosCollectionView.reloadData()
             }
         case .failed(let error):
-            let errorAlert = ViewFactory.createErrorAlert(message: error.localizedDescription)
+            let errorAlert = ViewFactory.makeErrorAlert(message: error.localizedDescription)
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.alert.dismiss(animated: false, completion: {
