@@ -38,7 +38,7 @@ class PhotoGalleryViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if case .started =  state {
-            alert = ViewFactory.createAlert("Image Download", spinner: true)
+            alert = ViewFactory.createSpinnerAlert("Image Download")
             coordinator?.show(alert: alert)
         }
     }
