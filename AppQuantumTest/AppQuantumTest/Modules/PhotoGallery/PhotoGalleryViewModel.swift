@@ -15,7 +15,7 @@ enum DownloadState {
     case started
     case infoLoaded(Int)
     case progress(Int)
-    case finished([ImageInfoData]?)
+    case finished([ImageInfoData])
     case imageProcessing
     case failed(Error)
 }
@@ -24,12 +24,6 @@ class PhotoGalleryViewModel {
     
     let imageProvider: ImageProvider
     var onStateChange: ((DownloadState) -> Void)?
-    
-    var imagesInfo: [ImageInfoData]? {
-        didSet {
-            onStateChange?(.finished(imagesInfo))
-        }
-    }
     
     private let hardcodedImageSize = CGSize(width: 99, height: 120) // temporary hardcode
     
@@ -51,7 +45,8 @@ class PhotoGalleryViewModel {
                     self.onStateChange?(.progress(progress))
                 }
                 self.onStateChange?(.imageProcessing)
-                self.imagesInfo = self.processImagesData(fetchedData, imageResponses)
+                let imagesInfo = self.processImagesData(fetchedData, imageResponses)
+                self.onStateChange?(.finished(imagesInfo))
             case let .failure(error):
                 self.onStateChange?(.failed(error))
                 print(error.localizedDescription)

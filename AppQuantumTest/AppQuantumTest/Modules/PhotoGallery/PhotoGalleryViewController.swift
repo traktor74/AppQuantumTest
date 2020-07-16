@@ -15,7 +15,7 @@ class PhotoGalleryViewController: UIViewController {
     var alert = ViewFactory.createAlert("Download started")
     var viewModel: PhotoGalleryViewModel?
     var coordinator: PhotoGalleryCoordinator?
-    var imagesInfo: [ImageInfoData]?
+    var imagesInfo: [ImageInfoData] = []
     
     var state: DownloadState = .started {
         didSet {
@@ -83,7 +83,7 @@ class PhotoGalleryViewController: UIViewController {
 
 extension PhotoGalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imagesInfo?.count ?? 0
+        return imagesInfo.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,7 +93,7 @@ extension PhotoGalleryViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let imagesInfo = imagesInfo,
+        guard imagesInfo.count > 0,
               let cell = cell as? PhotoGalleryCollectionCell else { return }
         cell.photoView.image = imagesInfo[indexPath.row].thumbnail
     }
@@ -102,9 +102,7 @@ extension PhotoGalleryViewController: UICollectionViewDataSource {
 
 extension PhotoGalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let imagesInfo = imagesInfo {
-           let selectedImageInfo = imagesInfo[indexPath.row]
-           coordinator?.startDetailedPhotoFlow(imageData: selectedImageInfo)
-        }
+        let selectedImageInfo = imagesInfo[indexPath.row]
+        coordinator?.startDetailedPhotoFlow(imageData: selectedImageInfo)
     }
 }

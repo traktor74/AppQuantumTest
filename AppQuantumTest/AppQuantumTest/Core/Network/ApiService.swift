@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum ApiError: Error {
+    case responseError
+}
+
 class ApiService {
     func loadObject<A>(ofType: A.Type,
                        url: URL,
@@ -22,8 +26,7 @@ class ApiService {
                 if let responseDecoded = try? JSONDecoder().decode(A.self, from: data) {
                     completion(.success(responseDecoded))
                 } else {
-                    let responseError = NSError(domain: "response failed", code: 999, userInfo: nil)
-                    completion(.failure(responseError))
+                    completion(.failure(ApiError.responseError))
                 }
             }
         }
