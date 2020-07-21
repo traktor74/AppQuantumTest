@@ -23,8 +23,6 @@ class PhotoGalleryViewController: UIViewController {
         }
     }
     
-    private var imagesCountLabel: String = ""
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel?.onStateChange = { [weak self] state in
@@ -46,13 +44,12 @@ class PhotoGalleryViewController: UIViewController {
     func handleStateChange() {
         switch state {
         case .started:
-            print("download started")
-        case .infoLoaded(let itemsCount):
-            self.imagesCountLabel = "of \(itemsCount)"
-        case .progress(let progress):
+            print("download started") // todo: label
+        case .progress(let progress, let totalCount):
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.alert.message = "\(progress) downloaded \(self.imagesCountLabel)"
+                let imagesCountLabel = "of \(totalCount)"
+                self.alert.message = "\(progress) downloaded \(imagesCountLabel)"
             }
         case .imageProcessing:
             DispatchQueue.main.async { [weak self] in

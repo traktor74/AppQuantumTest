@@ -13,8 +13,7 @@ typealias FetchedData = [(id: String, data: Data)]
 
 enum DownloadState {
     case started
-    case infoLoaded(Int)
-    case progress(Int)
+    case progress(Int, Int)
     case finished([ImageInfoData])
     case imageProcessing
     case failed(Error)
@@ -40,9 +39,10 @@ class PhotoGalleryViewModel {
             guard let self = self else { return }
             switch result {
             case let .success(imageResponses):
-                self.onStateChange?(.infoLoaded(imageResponses.count))
+                let totalCount = imageResponses.count
+                self.onStateChange?(.progress(0, totalCount))
                 let fetchedData = self.imageProvider.fetchImages(for: imageResponses) { progress in
-                    self.onStateChange?(.progress(progress))
+                    self.onStateChange?(.progress(progress, totalCount))
                 }
                 self.onStateChange?(.imageProcessing)
                 let imagesInfo = self.processImagesData(fetchedData, imageResponses)
