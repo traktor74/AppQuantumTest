@@ -28,10 +28,10 @@ class PhotoDetailsViewController: UIViewController {
         photoView.image = imageData.image
         photoInfoView.pinBackground(detailsBackgroundView)
         let labelWidth = photoInfoView.frame.width - 20
-        let idLabel = ViewFactory.createLabel("id: \(imageData.id)", width: labelWidth)
-        let authorLabel = ViewFactory.createLabel("author: \(imageData.author)", width: labelWidth)
-        let widthLabel = ViewFactory.createLabel("width: \(imageData.width)", width: labelWidth)
-        let heightLabel = ViewFactory.createLabel("height: \(imageData.height)", width: labelWidth)
+        let idLabel = ViewFactory.makeLabel("id: \(imageData.id)", width: labelWidth)
+        let authorLabel = ViewFactory.makeLabel("author: \(imageData.author)", width: labelWidth)
+        let widthLabel = ViewFactory.makeLabel("width: \(imageData.width)", width: labelWidth)
+        let heightLabel = ViewFactory.makeLabel("height: \(imageData.height)", width: labelWidth)
         
         photoInfoView.addArrangedSubview(idLabel)
         photoInfoView.addArrangedSubview(authorLabel)

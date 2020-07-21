@@ -9,8 +9,11 @@
 import Foundation
 import UIKit
 
-class ViewFactory {
-    static func createLabel(_ text: String, width: CGFloat) -> UILabel {
+enum ViewFactory { // empty enum, to deny creating an instance
+}
+
+extension ViewFactory {
+    static func makeLabel(_ text: String, width: CGFloat) -> UILabel {
         let resultLabel = UILabel()
         
         resultLabel.translatesAutoresizingMaskIntoConstraints = false

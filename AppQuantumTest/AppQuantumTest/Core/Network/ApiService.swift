@@ -19,6 +19,7 @@ class ApiService {
         let task = URLSession.shared.dataTask(with: url) { (data, reponse, error) in
             if let error = error {
                 completion(.failure(error))
+                return
             }
             guard let data = data else { return }
             if let httpResp = reponse as? HTTPURLResponse,
